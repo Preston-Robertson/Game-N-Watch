@@ -11,7 +11,7 @@ load_dotenv(override=True)
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
-intents.message_content = True
+# intents.message_content = True  # Enable this after turning it on in the Developer Portal
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
