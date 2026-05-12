@@ -17,21 +17,21 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
+    print(f"[OK] Logged in as {bot.user} (ID: {bot.user.id})")
     try:
         synced = await bot.tree.sync()
-        print(f"✅ Synced {len(synced)} slash command(s)")
+        print(f"[OK] Synced {len(synced)} slash command(s)")
     except Exception as e:
-        print(f"❌ Sync error: {e}")
+        print(f"[FAIL] Sync error: {e}")
 
     # Initialize Google Sheet (creates tabs + headers if needed)
     try:
         import db
         db._get_sheet()
-        print("✅ Google Sheet connected")
+        print("[OK] Google Sheet connected")
     except Exception as e:
         import traceback
-        print(f"❌ Google Sheet error: {type(e).__name__}: {e}")
+        print(f"[FAIL] Google Sheet error: {type(e).__name__}: {e}")
         traceback.print_exc()
 
     # Send startup message
@@ -99,15 +99,15 @@ async def on_ready():
             )
             embed.set_footer(text="Tip: Profile is optional on all commands if you've used !createprofile")
             await channel.send(embed=embed)
-            print("✅ Startup message sent")
+            print("[OK] Startup message sent")
 
 async def load_cogs():
     for cog in ["profiles", "games", "shows", "tracker", "picker"]:
         try:
             await bot.load_extension(cog)
-            print(f"✅ Loaded {cog}")
+            print(f"[OK] Loaded {cog}")
         except Exception as e:
-            print(f"❌ Failed to load {cog}: {e}")
+            print(f"[FAIL] Failed to load {cog}: {e}")
 
 async def main():
     async with bot:
